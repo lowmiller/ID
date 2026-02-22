@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/copie-de-:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/classes",
+      "destination": "/schedule",
+      "permanent": true
+    },
+    {
+      "source": "/studios",
+      "destination": "/locations",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/about",
+      "permanent": true
+    }
+  ]
+}
