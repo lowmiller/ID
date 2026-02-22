@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 252 252 252;
+    --foreground: 20 20 20;
+    --primary: 34 139 34;
+    --primary-dark: 25 100 25;
+    --accent: 184 134 11;
+    --accent-light: 218 165 32;
+    --neutral-light: 245 245 245;
+    --neutral-border: 230 230 230;
+    --text-secondary: 100 100 100;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif font-bold text-foreground;
+  }
+}

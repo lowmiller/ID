@@ -1,0 +1,40 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Enable React Compiler for optimized performance
+  reactCompiler: true,
+  
+  // Image optimization
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+
+  // Enable ISR for schedule updates
+  experimental: {
+    isrMemoryCacheSize: 50 * 1024 * 1024, // 50MB
+  },
+
+  // Headers for performance
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, stale-while-revalidate=86400'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+        ],
+      },
+    ]
+  },
+}
+
+export default nextConfig
