@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ID Hot Yoga — Mobile UX Mockup</title>
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #111;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 60px;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* ─── Page Layout Label ─────────────────────────────── */
+    .page-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 10px;
+      align-self: flex-start;
+      margin-left: calc(50% - 195px);
+    }
+
+    /* ─── Phone Frame ───────────────────────────────────── */
+    .phone {
+      width: 390px;
+      min-height: 844px;
+      background: #0d0d0d;
+      border-radius: 44px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 10px #1a1a1a,
+        0 0 0 11px #333,
+        0 0 60px rgba(0,0,0,0.8);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Notch */
+    .phone::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 30px;
+      background: #0d0d0d;
+      border-radius: 0 0 20px 20px;
+      z-index: 100;
+    }
+
+    /* ─── Screen Content ────────────────────────────────── */
+    .screen {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-top: 36px; /* space for notch */
+      padding-bottom: 80px; /* space for bottom nav */
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screen::-webkit-scrollbar { display: none; }
+
+    /* ─── Sticky Header ─────────────────────────────────── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13,13,13,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      gap: 10px;
+    }
+
+    .logo {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .logo span { color: #e8c97a; }
+
+    .location-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: #ccc;
+      cursor: pointer;
+      flex: 1;
+      min-width: 0;
+    }
+    .location-pill .pin { color: #e8c97a; font-size: 13px; flex-shrink: 0; }
+    .location-pill .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .location-pill .chevron { color: #666; font-size: 10px; flex-shrink: 0; margin-left: auto; }
+
+    .header-account {
+      width: 32px; height: 32px;
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    /* ─── Hero / New Student Banner ─────────────────────── */
+    .hero {
+      background: linear-gradient(160deg, #1a1209 0%, #0d0d0d 60%);
+      border-bottom: 1px solid #1e1e1e;
+      padding: 28px 20px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(232,201,122,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(232,201,122,0.12);
+      color: #e8c97a;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 4px 8px;
+      margin-bottom: 12px;
+    }
+    .hero-tag::before { content: '★'; }
+    .hero h1 {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .hero h1 em { color: #e8c97a; font-style: normal; }
+    .hero p {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      max-width: 260px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-primary {
+      flex: 1;
+      background: #e8c97a;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-secondary {
+      flex: 1;
+      background: transparent;
+      color: #fff;
+      border: 1px solid #2e2e2e;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    /* ─── Schedule Section ──────────────────────────────── */
+    .section {
+      padding: 24px 20px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .section-link {
+      font-size: 12px;
+      color: #e8c97a;
+      font-weight: 600;
+    }
+
+    /* ─── Day Scroller ──────────────────────────────────── */
+    .day-scroller {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 20px 14px;
+      margin: 0 -20px;
+      scrollbar-width: none;
+    }
+    .day-scroller::-webkit-scrollbar { display: none; }
+
+    .day-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 8px 12px;
+      min-width: 48px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .day-chip.active {
+      background: #e8c97a;
+      border-color: #e8c97a;
+    }
+    .day-chip .day-name {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #666;
+    }
+    .day-chip.active .day-name { color: rgba(0,0,0,0.5); }
+    .day-chip .day-num {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .day-chip.active .day-num { color: #0d0d0d; }
+
+    /* ─── Class Type Filter ─────────────────────────────── */
+    .filter-row {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 0 20px 16px;
+      margin: 0 -20px;
+      scrollbar-width: none;
+    }
+    .filter-row::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #999;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .filter-chip.active {
+      background: rgba(232,201,122,0.1);
+      border-color: rgba(232,201,122,0.4);
+      color: #e8c97a;
+    }
+    .filter-chip .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    /* ─── Class Cards ───────────────────────────────────── */
+    .class-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 0 20px;
+    }
+
+    .class-card {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 0 14px;
+      align-items: start;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .class-card:hover { border-color: #333; }
+    .class-card.featured { border-color: rgba(232,201,122,0.25); }
+
+    .class-time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2px;
+    }
+    .class-time .hour {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .class-time .ampm {
+      font-size: 10px;
+      color: #555;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .class-time .duration {
+      font-size: 10px;
+      color: #444;
+      margin-top: 6px;
+    }
+
+    .class-info { min-width: 0; }
+    .class-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .class-instructor {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .class-instructor span { color: #aaa; }
+    .class-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 3px 7px;
+      border-radius: 5px;
+      text-transform: uppercase;
+    }
+    .tag-hot { background: rgba(255,90,60,0.12); color: #ff6b4a; }
+    .tag-flow { background: rgba(100,160,255,0.1); color: #7ab0ff; }
+    .tag-pilates { background: rgba(160,100,255,0.1); color: #b07aff; }
+    .tag-yin { background: rgba(100,200,160,0.1); color: #7acfaa; }
+    .tag-hiit { background: rgba(255,160,60,0.1); color: #ffad4a; }
+    .tag-beginner { background: rgba(232,201,122,0.1); color: #e8c97a; }
+
+    .class-action {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      padding-top: 2px;
+    }
+    .spots-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .spots-green { background: rgba(50,200,100,0.1); color: #4cd97a; }
+    .spots-amber { background: rgba(255,180,50,0.1); color: #ffb83c; }
+    .spots-red { background: rgba(255,80,80,0.1); color: #ff6b6b; }
+
+    .book-btn {
+      background: #fff;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .book-btn.full {
+      background: #1c1c1c;
+      color: #555;
+    }
+
+    /* ─── Location Drawer Preview ───────────────────────── */
+    .location-drawer {
+      margin: 24px 20px 0;
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .drawer-title {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #666;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .location-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #1a1a1a;
+      cursor: pointer;
+    }
+    .location-row:last-child { border-bottom: none; }
+    .location-icon {
+      width: 36px; height: 36px;
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .location-row.selected .location-icon {
+      background: rgba(232,201,122,0.1);
+      border-color: rgba(232,201,122,0.3);
+    }
+    .location-meta { flex: 1; min-width: 0; }
+    .location-meta .loc-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .location-meta .loc-addr {
+      font-size: 11px;
+      color: #555;
+    }
+    .location-row.selected .loc-name { color: #e8c97a; }
+    .selected-check {
+      color: #e8c97a;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Pricing Teaser ────────────────────────────────── */
+    .pricing-cards {
+      display: flex;
+      gap: 10px;
+      padding: 0 20px;
+    }
+    .price-card {
+      flex: 1;
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 14px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .price-card.highlight {
+      background: linear-gradient(145deg, #1a1609, #161616);
+      border-color: rgba(232,201,122,0.3);
+    }
+    .price-card .pc-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .price-card.highlight .pc-label { color: #e8c97a; }
+    .price-card .pc-amount {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+    .price-card .pc-per {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+    .price-card .pc-cta {
+      display: block;
+      background: #1c1c1c;
+      color: #aaa;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .price-card.highlight .pc-cta {
+      background: #e8c97a;
+      color: #0d0d0d;
+      border-color: #e8c97a;
+    }
+
+    /* ─── Sticky Trial Banner ───────────────────────────── */
+    .trial-banner {
+      margin: 24px 20px 0;
+      background: linear-gradient(110deg, #1a1609, #120e04);
+      border: 1px solid rgba(232,201,122,0.3);
+      border-radius: 16px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .trial-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .trial-text { flex: 1; }
+    .trial-text h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .trial-text p {
+      font-size: 12px;
+      color: #888;
+      line-height: 1.4;
+    }
+    .trial-btn {
+      flex-shrink: 0;
+      background: #e8c97a;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* ─── Social Proof Strip ────────────────────────────── */
+    .social-strip {
+      display: flex;
+      gap: 10px;
+      padding: 0 20px;
+    }
+    .stat-card {
+      flex: 1;
+      background: #161616;
+      border: 1px solid #1e1e1e;
+      border-radius: 12px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: #e8c97a;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: #555;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* ─── Spacer ────────────────────────────────────────── */
+    .spacer { height: 32px; }
+
+    /* ─── Bottom Nav ────────────────────────────────────── */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      padding: 10px 0 22px; /* 22px for home indicator */
+      z-index: 50;
+    }
+
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-icon { font-size: 20px; line-height: 1; }
+    .nav-label {
+      font-size: 10px;
+      font-weight: 500;
+      color: #444;
+      letter-spacing: 0.02em;
+    }
+    .nav-item.active .nav-label { color: #e8c97a; }
+    .nav-item.active .nav-icon { filter: sepia(1) saturate(2) hue-rotate(5deg); }
+
+    /* Center Book button */
+    .nav-book {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .nav-book-btn {
+      background: #e8c97a;
+      color: #0d0d0d;
+      border: none;
+      border-radius: 14px;
+      padding: 8px 18px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    /* ─── Annotation Callouts ───────────────────────────── */
+    .annotations {
+      width: 390px;
+      margin-top: 20px;
+    }
+    .annotation {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .ann-num {
+      background: #e8c97a;
+      color: #0d0d0d;
+      font-size: 10px;
+      font-weight: 800;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .ann-text { font-size: 12px; color: #888; line-height: 1.5; }
+    .ann-text strong { color: #ccc; }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">ID Hot Yoga — Mobile UX Mockup · 390px viewport</div>
+
+  <div class="phone">
+    <div class="screen">
+
+      <!-- ① Sticky Header -->
+      <div class="header">
+        <div class="logo">ID <span>Hot</span> Yoga</div>
+        <div class="location-pill">
+          <span class="pin">📍</span>
+          <span class="name">NoMad · 284 5th Ave</span>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="header-account">👤</div>
+      </div>
+
+      <!-- ② New Student Hero -->
+      <div class="hero">
+        <div class="hero-tag">New to ID Hot Yoga?</div>
+        <h1>Your first class,<br><em>just $25.</em></h1>
+        <p>Any location. Any class. No commitment required.</p>
+        <div class="hero-cta">
+          <div class="btn-primary">Claim Trial Class</div>
+          <div class="btn-secondary">See Schedule</div>
+        </div>
+      </div>
+
+      <!-- ③ Today's Classes -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Today · Sun 22 Feb</div>
+          <div class="section-link">View full week →</div>
+        </div>
+      </div>
+
+      <!-- ④ Day Scroller -->
+      <div class="day-scroller">
+        <div class="day-chip"><span class="day-name">Sun</span><span class="day-num">22</span></div>
+        <div class="day-chip active"><span class="day-name">Mon</span><span class="day-num">23</span></div>
+        <div class="day-chip"><span class="day-name">Tue</span><span class="day-num">24</span></div>
+        <div class="day-chip"><span class="day-name">Wed</span><span class="day-num">25</span></div>
+        <div class="day-chip"><span class="day-name">Thu</span><span class="day-num">26</span></div>
+        <div class="day-chip"><span class="day-name">Fri</span><span class="day-num">27</span></div>
+        <div class="day-chip"><span class="day-name">Sat</span><span class="day-num">28</span></div>
+      </div>
+
+      <!-- ⑤ Class Type Filters -->
+      <div class="filter-row">
+        <div class="filter-chip active"><span class="dot"></span> All Classes</div>
+        <div class="filter-chip"><span class="dot"></span> Hot Flow</div>
+        <div class="filter-chip"><span class="dot"></span> 26&2</div>
+        <div class="filter-chip"><span class="dot"></span> Pilates</div>
+        <div class="filter-chip"><span class="dot"></span> Yin</div>
+        <div class="filter-chip"><span class="dot"></span> HIIT</div>
+      </div>
+
+      <!-- ⑥ Class Cards -->
+      <div class="class-list">
+
+        <div class="class-card">
+          <div class="class-time">
+            <span class="hour">6:00</span>
+            <span class="ampm">AM</span>
+            <span class="duration">60 min</span>
+          </div>
+          <div class="class-info">
+            <div class="class-name">Hot Flow</div>
+            <div class="class-instructor">with <span>Tricia D.</span></div>
+            <div class="class-tags">
+              <span class="tag tag-hot">Hot</span>
+              <span class="tag tag-flow">Flow</span>
+            </div>
+          </div>
+          <div class="class-action">
+            <span class="spots-badge spots-green">12 spots</span>
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-time">
+            <span class="hour">7:30</span>
+            <span class="ampm">AM</span>
+            <span class="duration">90 min</span>
+          </div>
+          <div class="class-info">
+            <div class="class-name">Fierce Grace 26&2</div>
+            <div class="class-instructor">with <span>Kelly I.</span></div>
+            <div class="class-tags">
+              <span class="tag tag-hot">Hot</span>
+              <span class="tag tag-beginner">Beginner OK</span>
+            </div>
+          </div>
+          <div class="class-action">
+            <span class="spots-badge spots-amber">4 spots</span>
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+
+        <div class="class-card featured">
+          <div class="class-time">
+            <span class="hour">9:15</span>
+            <span class="ampm">AM</span>
+            <span class="duration">60 min</span>
+          </div>
+          <div class="class-info">
+            <div class="class-name">Slowburn Hot Pilates</div>
+            <div class="class-instructor">with <span>Maya R.</span></div>
+            <div class="class-tags">
+              <span class="tag tag-hot">Hot</span>
+              <span class="tag tag-pilates">Pilates</span>
+            </div>
+          </div>
+          <div class="class-action">
+            <span class="spots-badge spots-amber">3 spots</span>
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-time">
+            <span class="hour">12:00</span>
+            <span class="ampm">PM</span>
+            <span class="duration">60 min</span>
+          </div>
+          <div class="class-info">
+            <div class="class-name">Hot HIIT</div>
+            <div class="class-instructor">with <span>Jordan S.</span></div>
+            <div class="class-tags">
+              <span class="tag tag-hot">Hot</span>
+              <span class="tag tag-hiit">HIIT</span>
+            </div>
+          </div>
+          <div class="class-action">
+            <span class="spots-badge spots-red">Full</span>
+            <button class="book-btn full">Waitlist</button>
+          </div>
+        </div>
+
+        <div class="class-card">
+          <div class="class-time">
+            <span class="hour">5:30</span>
+            <span class="ampm">PM</span>
+            <span class="duration">75 min</span>
+          </div>
+          <div class="class-info">
+            <div class="class-name">Yin & Restore</div>
+            <div class="class-instructor">with <span>Anita L.</span></div>
+            <div class="class-tags">
+              <span class="tag tag-yin">Yin</span>
+              <span class="tag tag-beginner">All Levels</span>
+            </div>
+          </div>
+          <div class="class-action">
+            <span class="spots-badge spots-green">18 spots</span>
+            <button class="book-btn">Book</button>
+          </div>
+        </div>
+
+      </div><!-- /class-list -->
+
+      <!-- ⑦ Social Proof -->
+      <div class="section">
+        <div class="spacer" style="height:24px"></div>
+        <div class="social-strip">
+          <div class="stat-card">
+            <div class="stat-num">5</div>
+            <div class="stat-label">NYC studios</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">40+</div>
+            <div class="stat-label">weekly classes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">4.8★</div>
+            <div class="stat-label">avg. rating</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ⑧ Trial Banner -->
+      <div class="trial-banner">
+        <div class="trial-icon">🔥</div>
+        <div class="trial-text">
+          <h3>New Student Special</h3>
+          <p>First class at any Manhattan studio — just $25. No strings attached.</p>
+        </div>
+        <button class="trial-btn">$25 →</button>
+      </div>
+
+      <!-- ⑨ Pricing Teaser -->
+      <div class="section">
+        <div class="spacer" style="height:24px"></div>
+        <div class="section-header">
+          <div class="section-title">Membership</div>
+          <div class="section-link">Compare all →</div>
+        </div>
+      </div>
+      <div class="pricing-cards">
+        <div class="price-card">
+          <div class="pc-label">Drop-In</div>
+          <div class="pc-amount">$40</div>
+          <div class="pc-per">per class</div>
+          <div class="pc-cta">Book Once</div>
+        </div>
+        <div class="price-card">
+          <div class="pc-label">5-Pack</div>
+          <div class="pc-amount">$175</div>
+          <div class="pc-per">$35 per class</div>
+          <div class="pc-cta">Buy Pack</div>
+        </div>
+        <div class="price-card highlight">
+          <div class="pc-label">Unlimited</div>
+          <div class="pc-amount">$169</div>
+          <div class="pc-per">per month</div>
+          <div class="pc-cta">Best Value</div>
+        </div>
+      </div>
+
+      <!-- ⑩ Location Selector Preview -->
+      <div class="section">
+        <div class="spacer" style="height:24px"></div>
+        <div class="section-header">
+          <div class="section-title">Locations</div>
+          <div class="section-link">Directions →</div>
+        </div>
+      </div>
+      <div class="location-drawer">
+        <div class="drawer-title">Choose Your Studio</div>
+        <div class="location-row selected">
+          <div class="location-icon">🏙️</div>
+          <div class="location-meta">
+            <div class="loc-name">NoMad</div>
+            <div class="loc-addr">284 5th Ave, 2nd Floor</div>
+          </div>
+          <span class="selected-check">✓</span>
+        </div>
+        <div class="location-row">
+          <div class="location-icon">🏦</div>
+          <div class="location-meta">
+            <div class="loc-name">FIDI</div>
+            <div class="loc-addr">121 Fulton St, 3rd Floor</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="location-icon">🏘️</div>
+          <div class="location-meta">
+            <div class="loc-name">Lower East Side</div>
+            <div class="loc-addr">172 Allen St, 2nd Floor</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="location-icon">⬆️</div>
+          <div class="location-meta">
+            <div class="loc-name">Harlem</div>
+            <div class="loc-addr">518 W 145th St, 2nd Floor</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="location-icon">🌊</div>
+          <div class="location-meta">
+            <div class="loc-name">East Hampton</div>
+            <div class="loc-addr">3 Railroad Ave</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacer"></div>
+
+    </div><!-- /screen -->
+
+    <!-- ⑪ Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">📅</span>
+        <span class="nav-label">Schedule</span>
+      </div>
+      <div class="nav-book">
+        <button class="nav-book-btn">Book Now</button>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">💳</span>
+        <span class="nav-label">Pricing</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">Account</span>
+      </div>
+    </div>
+
+  </div><!-- /phone -->
+
+  <!-- Design Decision Annotations -->
+  <div class="annotations">
+    <div class="annotation"><div class="ann-num">1</div><div class="ann-text"><strong>Sticky header + location pill:</strong> Users see and can change their studio on every scroll position. Replaces buried location page.</div></div>
+    <div class="annotation"><div class="ann-num">2</div><div class="ann-text"><strong>$25 trial above the fold:</strong> New student offer is the primary conversion hook — shown before any scroll, not buried 4 screens down.</div></div>
+    <div class="annotation"><div class="ann-num">3</div><div class="ann-text"><strong>Schedule visible on the homepage:</strong> Today's classes load inline on the home screen — no navigation required to see what's available right now.</div></div>
+    <div class="annotation"><div class="ann-num">4</div><div class="ann-text"><strong>Day scroller + class type filters:</strong> Horizontal scroll chips let users jump to any day or filter by class type with one tap. No dropdowns, no page reloads.</div></div>
+    <div class="annotation"><div class="ann-num">5</div><div class="ann-text"><strong>Class cards show spots + one-tap booking:</strong> Availability (green/amber/red) and a direct Book button per class. No separate booking flow just to see if a class is full.</div></div>
+    <div class="annotation"><div class="ann-num">6</div><div class="ann-text"><strong>Persistent "Book Now" in bottom nav:</strong> The primary action is always one tap away regardless of where the user is on the page.</div></div>
+    <div class="annotation"><div class="ann-num">7</div><div class="ann-text"><strong>Inline pricing teaser:</strong> Three pricing tiers shown as cards — scannable in 3 seconds. Highlights the unlimited plan as best value without hiding pricing behind a separate page.</div></div>
+    <div class="annotation"><div class="ann-num">8</div><div class="ann-text"><strong>Location selector as a list, not a map:</strong> A tappable list with neighborhood names is faster than a map view on mobile, especially for repeat users who know their studio.</div></div>
+  </div>
+
+</body>
+</html>
