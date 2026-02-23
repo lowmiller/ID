@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable React Compiler for optimized performance
-  reactCompiler: true,
-  
   // Image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
