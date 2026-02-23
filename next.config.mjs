@@ -15,11 +15,6 @@ const nextConfig = {
     ],
   },
 
-  // Enable ISR for schedule updates
-  experimental: {
-    isrMemoryCacheSize: 50 * 1024 * 1024, // 50MB
-  },
-
   // Headers for performance
   async headers() {
     return [
