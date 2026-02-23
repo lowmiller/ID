@@ -18,10 +18,10 @@ export default function LocationCard({
   mapUrl,
 }: LocationCardProps) {
   return (
-    <div className="bg-white border border-neutral-border p-6 rounded hover:shadow-lg transition h-full flex flex-col">
-      <h3 className="font-serif text-xl font-bold mb-4">{name}</h3>
+    <div className="bg-surface border border-neutral-border p-6 hover:border-neutral-border/80 transition h-full flex flex-col">
+      <h3 className="text-xl font-bold mb-4">{name}</h3>
 
-      <div className="space-y-3 text-sm font-sans text-text-secondary flex-grow">
+      <div className="space-y-3 text-sm text-text-secondary flex-grow">
         <div>
           <p className="font-medium text-foreground mb-1">Address</p>
           <a
@@ -47,21 +47,13 @@ export default function LocationCard({
         </div>
       </div>
 
-      <div className="flex gap-2 mt-6">
+      <div className="mt-6">
         <Link
           href={`/schedule/${slug}`}
-          className="flex-1 bg-primary text-white px-4 py-2 rounded text-center text-sm font-sans font-medium hover:bg-primary-dark transition"
+          className="block bg-primary text-background px-4 py-2 text-center text-sm font-bold hover:bg-accent-light transition"
         >
           View Schedule
         </Link>
-        <a
-          href={mapUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 border border-primary text-primary px-4 py-2 rounded text-center text-sm font-sans font-medium hover:bg-primary hover:text-white transition"
-        >
-          Directions
-        </a>
       </div>
     </div>
   )

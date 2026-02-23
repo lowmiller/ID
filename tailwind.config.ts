@@ -17,13 +17,15 @@ const config: Config = {
         'neutral-light': 'rgb(var(--neutral-light) / <alpha-value>)',
         'neutral-border': 'rgb(var(--neutral-border) / <alpha-value>)',
         'text-secondary': 'rgb(var(--text-secondary) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        'surface-white': 'rgb(var(--surface-white) / <alpha-value>)',
       },
       borderRadius: {
         DEFAULT: 'var(--radius)',
       },
       fontFamily: {
-        serif: ['var(--font-serif)', 'serif'],
-        sans: ['var(--font-sans)', 'sans-serif'],
+        sans: ['var(--font-sans)', 'Arial', 'Helvetica', 'sans-serif'],
+        nav: ['var(--font-nav)', 'Open Sans', 'Arial', 'sans-serif'],
       },
     },
   },

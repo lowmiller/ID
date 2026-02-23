@@ -4,20 +4,22 @@
 
 @layer base {
   :root {
-    --background: 252 252 252;
-    --foreground: 20 20 20;
-    --primary: 34 139 34;
-    --primary-dark: 25 100 25;
-    --accent: 184 134 11;
-    --accent-light: 218 165 32;
-    --neutral-light: 245 245 245;
-    --neutral-border: 230 230 230;
-    --text-secondary: 100 100 100;
-    --radius: 0.5rem;
+    --background: 13 13 13;
+    --foreground: 245 245 245;
+    --primary: 247 253 52;
+    --primary-dark: 168 168 0;
+    --accent: 247 253 52;
+    --accent-light: 250 254 130;
+    --neutral-light: 22 22 22;
+    --neutral-border: 42 42 42;
+    --text-secondary: 136 136 136;
+    --surface: 22 22 22;
+    --surface-white: 255 255 255;
+    --radius: 0.875rem;
   }
 
   * {
-    @apply border-border;
+    @apply border-neutral-border;
   }
 
   body {
@@ -30,6 +32,6 @@
   h4,
   h5,
   h6 {
-    @apply font-serif font-bold text-foreground;
+    @apply font-sans font-bold text-foreground uppercase tracking-wider;
   }
 }

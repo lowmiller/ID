@@ -5,80 +5,68 @@ import { LOCATIONS } from '@/lib/constants'
 import Link from 'next/link'
 
 export default function LocationSelector() {
-  const [nearestLocation, setNearestLocation] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string>(LOCATIONS[0].id)
 
   useEffect(() => {
-    // Attempt to get user's location using browser Geolocation API
-    if (typeof window !== 'undefined' && navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const userLat = position.coords.latitude
           const userLng = position.coords.longitude
-
-          // Find nearest location
           let nearest = LOCATIONS[0]
-          let minDistance = calculateDistance(
-            userLat,
-            userLng,
-            nearest.coordinates.lat,
-            nearest.coordinates.lng
-          )
-
+          let minDist = Infinity
           LOCATIONS.forEach((loc) => {
-            const distance = calculateDistance(
-              userLat,
-              userLng,
-              loc.coordinates.lat,
-              loc.coordinates.lng
-            )
-            if (distance < minDistance) {
-              minDistance = distance
-              nearest = loc
-            }
+            const d = haversine(userLat, userLng, loc.coordinates.lat, loc.coordinates.lng)
+            if (d < minDist) { minDist = d; nearest = loc }
           })
-
-          setNearestLocation(nearest.id)
+          setSelectedId(nearest.id)
         },
-        () => {
-          // If geolocation fails, default to first location
-          setNearestLocation(LOCATIONS[0].id)
-        }
+        () => setSelectedId(LOCATIONS[0].id)
       )
     }
   }, [])
 
   return (
-    <div className="bg-primary text-white p-8 rounded">
-      <h3 className="font-serif text-xl font-bold mb-4">Find Your Studio</h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-        {LOCATIONS.map((location) => (
+    <div className="bg-surface border border-neutral-border overflow-hidden">
+      <div className="px-4 py-3.5 text-[13px] font-bold uppercase tracking-wider text-text-secondary border-b border-neutral-border">
+        Choose Your Studio
+      </div>
+      {LOCATIONS.map((loc, i) => {
+        const isSelected = loc.id === selectedId
+        return (
           <Link
-            key={location.id}
-            href={`/locations/${location.slug}`}
-            className={`p-3 rounded text-center text-sm font-sans transition ${
-              nearestLocation === location.id
-                ? 'bg-accent text-black font-medium'
-                : 'bg-white/20 hover:bg-white/30'
+            key={loc.id}
+            href={`/locations/${loc.slug}`}
+            onClick={() => setSelectedId(loc.id)}
+            className={`flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-neutral-light/50 ${
+              i < LOCATIONS.length - 1 ? 'border-b border-neutral-border/50' : ''
             }`}
           >
-            {location.name}
+            <div className={`w-9 h-9 flex items-center justify-center text-[11px] font-bold flex-shrink-0 border ${
+              isSelected
+                ? 'bg-primary/10 border-primary/30 text-primary'
+                : 'bg-neutral-light border-neutral-border text-text-secondary'
+            }`}>
+              {loc.shortName.slice(0, 3)}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className={`text-sm font-semibold ${isSelected ? 'text-primary' : ''}`}>{loc.name}</div>
+              <div className="text-[11px] text-text-secondary">{loc.shortAddress}</div>
+            </div>
+            {isSelected && <svg className="w-4 h-4 text-primary flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>}
           </Link>
-        ))}
-      </div>
+        )
+      })}
     </div>
   )
 }
 
-function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 3959 // Earth's radius in miles
+function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 3959
   const dLat = ((lat2 - lat1) * Math.PI) / 180
   const dLon = ((lon2 - lon1) * Math.PI) / 180
   const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-  return R * c
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }

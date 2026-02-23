@@ -1,24 +1,26 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Lora } from 'next/font/google'
+import { DM_Sans, Open_Sans } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-const playfair = Playfair_Display({ 
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-serif'
+  variable: '--font-sans',
+  weight: ['400', '500', '700'],
 })
 
-const lora = Lora({ 
+const openSans = Open_Sans({
   subsets: ['latin'],
-  variable: '--font-sans'
+  variable: '--font-nav',
+  weight: ['400', '600'],
 })
 
 export const metadata: Metadata = {
-  title: 'ID Hot Yoga | Premium Yoga Studios NYC',
-  description: 'Experience transformative hot yoga in NYC. 5 locations serving Lower East Side, Nomad, Financial District, Harlem & East Hampton.',
+  title: 'iD Hot Yoga | Hot Like No Other',
+  description: "NYC & East Hampton's top hot yoga studios. Hot yoga, hot Pilates, HIIT, and Yin classes at 5 locations.",
   metadataBase: new URL('https://idhotyoga.com'),
-  keywords: ['hot yoga', 'yoga studios', 'NYC yoga', 'yoga classes'],
+  keywords: ['hot yoga', 'yoga studios', 'NYC yoga', 'hot pilates', 'HIIT yoga', 'ID Hot Yoga'],
 }
 
 export default function RootLayout({
@@ -27,9 +29,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${lora.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${openSans.variable}`}>
       <head>
-        <meta name="theme-color" content="#228b22" />
+        <meta name="theme-color" content="#0D0D0D" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </head>
       <body className="font-sans bg-background text-foreground">

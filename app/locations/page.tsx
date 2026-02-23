@@ -1,32 +1,47 @@
-import { LOCATIONS } from '@/lib/constants'
+import Image from 'next/image'
+import { BRAND, LOCATIONS } from '@/lib/constants'
 import LocationCard from '@/components/LocationCard'
 import LocationSelector from '@/components/LocationSelector'
 
 export const metadata = {
-  title: 'Our Locations | ID Hot Yoga',
-  description: 'Find ID Hot Yoga locations in NYC and East Hampton.',
+  title: 'Our Locations | iD Hot Yoga',
+  description: 'Find iD Hot Yoga locations in NYC and East Hampton.',
 }
 
 export default function LocationsPage() {
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="mb-12">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
+      {/* Hero with B&W yoga photo */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/pricing-bg.jpg"
+            alt="Yoga practice at ID Hot Yoga studio"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/90" />
+        </div>
+        <div className="relative z-10 px-5 md:px-8 pt-20 pb-16 max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
             Our Locations
           </h1>
-          <p className="font-sans text-lg text-text-secondary">
-            Five premium hot yoga studios across New York City and the Hamptons.
+          <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+            Five studios across New York City and the Hamptons.
           </p>
         </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-5 md:px-8 py-16">
 
         {/* Location Selector */}
-        <div className="mb-16">
+        <div className="mb-12">
           <LocationSelector />
         </div>
 
         {/* Locations Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {LOCATIONS.map((location) => (
             <LocationCard
               key={location.id}
@@ -40,19 +55,19 @@ export default function LocationsPage() {
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-16 bg-accent p-8 rounded text-center">
-          <h2 className="font-serif text-2xl font-bold mb-4 text-black">
-            Ready to Start Your Practice?
+        {/* CTA */}
+        <div className="mt-12 bg-surface border border-primary/30 p-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">
+            Ready to Start?
           </h2>
-          <p className="font-sans text-black/90 mb-6">
-            Visit your nearest location to learn more about our classes.
+          <p className="text-text-secondary mb-6">
+            Visit your nearest studio to experience yoga like no other.
           </p>
           <a
-            href="https://mindbody.io/book"
+            href={BRAND.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-black text-accent px-8 py-3 rounded font-sans font-bold hover:bg-foreground transition inline-block"
+            className="inline-block bg-primary text-background px-8 py-3 font-bold hover:bg-accent-light transition"
           >
             Book Now
           </a>

@@ -1,10 +1,11 @@
 import { getSchedule } from '@/lib/mindbody-api'
 import ClassSchedule from '@/components/ClassSchedule'
-import { LOCATIONS } from '@/lib/constants'
+import DayScroller from '@/components/DayScroller'
+import { BRAND, LOCATIONS } from '@/lib/constants'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Class Schedule by Location | ID Hot Yoga',
+  title: 'Class Schedule by Location | iD Hot Yoga',
 }
 
 interface PageProps {
@@ -25,8 +26,8 @@ export default async function LocationSchedulePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h1 className="font-serif text-3xl font-bold mb-4">Location Not Found</h1>
-          <Link href="/schedule" className="text-primary hover:text-primary-dark">
+          <h1 className="text-3xl font-bold mb-4">Location Not Found</h1>
+          <Link href="/schedule" className="text-primary hover:text-accent-light">
             Back to Schedule
           </Link>
         </div>
@@ -38,34 +39,34 @@ export default async function LocationSchedulePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <Link href="/schedule" className="text-primary hover:text-primary-dark mb-6 inline-block">
-          ← Back to Schedule
-        </Link>
-
-        <div className="mb-12">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mb-4">
-            {locationData.name} Schedule
+      <div className="max-w-4xl mx-auto py-8">
+        <div className="px-5 mb-6">
+          <Link href="/schedule" className="text-primary hover:text-accent-light text-sm mb-4 inline-block">
+            &larr; All Locations
+          </Link>
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-2">
+            {locationData.name}
           </h1>
-          <p className="font-sans text-lg text-text-secondary">
-            {locationData.address} • {locationData.phone}
+          <p className="text-text-secondary text-sm">
+            {locationData.address} &middot; {locationData.phone}
           </p>
         </div>
 
+        <DayScroller />
         <ClassSchedule classes={classes} />
 
-        <div className="mt-12 bg-primary text-white p-8 rounded text-center">
-          <h2 className="font-serif text-2xl font-bold mb-4">
+        <div className="mx-5 mt-10 bg-surface border border-primary/30 p-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">
             Book Your Class
           </h2>
-          <p className="font-sans text-white/90 mb-6">
-            Secure your spot in any of our {locationData.name} classes.
+          <p className="text-text-secondary mb-6">
+            Secure your spot at {locationData.name}.
           </p>
           <a
-            href="https://mindbody.io/book"
+            href={BRAND.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-accent text-black px-8 py-3 rounded font-sans font-bold hover:bg-accent-light transition inline-block"
+            className="inline-block bg-primary text-background px-8 py-3 font-bold hover:bg-accent-light transition"
           >
             Reserve Now
           </a>

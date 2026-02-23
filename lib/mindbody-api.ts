@@ -8,7 +8,9 @@ export interface Class {
   startTime: string
   endTime: string
   location: string
+  locationId: string
   type: string
+  duration: string
   capacity: number
   enrolled: number
 }
@@ -18,96 +20,112 @@ export interface Schedule {
   classes: Class[]
 }
 
-// Mock data for demonstration
+// Mock data for demonstration — class types match ID Hot Yoga's real offerings
 const MOCK_SCHEDULE: Record<string, Class[]> = {
   'les': [
     {
       id: '1',
-      name: 'Hot Vinyasa',
-      instructor: 'Sarah',
+      name: 'Hot Flow',
+      instructor: 'Tricia D.',
       startTime: '06:00',
       endTime: '07:00',
       location: 'Lower East Side',
-      type: 'Vinyasa',
+      locationId: 'les',
+      type: 'flow',
+      duration: '60 min',
       capacity: 25,
-      enrolled: 18,
+      enrolled: 13,
     },
     {
       id: '2',
-      name: 'Gentle Heat',
-      instructor: 'Michael',
-      startTime: '09:00',
-      endTime: '10:00',
+      name: 'Fierce Grace 26&2',
+      instructor: 'Kelly I.',
+      startTime: '07:30',
+      endTime: '09:00',
       location: 'Lower East Side',
-      type: 'Gentle',
-      capacity: 30,
-      enrolled: 12,
+      locationId: 'les',
+      type: 'hot',
+      duration: '90 min',
+      capacity: 28,
+      enrolled: 24,
     },
     {
       id: '3',
-      name: 'Power Flow',
-      instructor: 'Jessica',
-      startTime: '12:00',
-      endTime: '13:15',
+      name: 'Slowburn Hot Pilates',
+      instructor: 'Maya R.',
+      startTime: '09:15',
+      endTime: '10:15',
       location: 'Lower East Side',
-      type: 'Power',
+      locationId: 'les',
+      type: 'pilates',
+      duration: '60 min',
+      capacity: 22,
+      enrolled: 19,
+    },
+    {
+      id: '4',
+      name: 'Hot HIIT',
+      instructor: 'Jordan S.',
+      startTime: '12:00',
+      endTime: '13:00',
+      location: 'Lower East Side',
+      locationId: 'les',
+      type: 'hiit',
+      duration: '60 min',
       capacity: 20,
       enrolled: 20,
     },
     {
-      id: '4',
-      name: 'Restorative',
-      instructor: 'Emma',
-      startTime: '18:00',
-      endTime: '19:00',
-      location: 'Lower East Side',
-      type: 'Restorative',
-      capacity: 25,
-      enrolled: 15,
-    },
-    {
       id: '5',
-      name: 'Hot Vinyasa',
-      instructor: 'David',
-      startTime: '19:30',
-      endTime: '20:30',
+      name: 'Yin & Restore',
+      instructor: 'Anita L.',
+      startTime: '17:30',
+      endTime: '18:45',
       location: 'Lower East Side',
-      type: 'Vinyasa',
+      locationId: 'les',
+      type: 'yin',
+      duration: '75 min',
       capacity: 25,
-      enrolled: 22,
+      enrolled: 7,
     },
   ],
   'nomad': [
     {
       id: '6',
-      name: 'Gentle Heat',
-      instructor: 'Lauren',
+      name: 'Hot Flow',
+      instructor: 'Lauren M.',
       startTime: '06:30',
       endTime: '07:30',
       location: 'NoMad',
-      type: 'Gentle',
+      locationId: 'nomad',
+      type: 'flow',
+      duration: '60 min',
       capacity: 28,
       enrolled: 10,
     },
     {
       id: '7',
-      name: 'Yin Yang',
-      instructor: 'Marcus',
+      name: 'Fierce Grace 26&2',
+      instructor: 'Marcus K.',
       startTime: '10:00',
-      endTime: '11:15',
+      endTime: '11:30',
       location: 'NoMad',
-      type: 'Yin Yang',
+      locationId: 'nomad',
+      type: 'hot',
+      duration: '90 min',
       capacity: 22,
       enrolled: 22,
     },
     {
       id: '8',
-      name: 'Power Flow',
-      instructor: 'Angela',
+      name: 'Hot HIIT',
+      instructor: 'Angela W.',
       startTime: '17:00',
-      endTime: '18:15',
+      endTime: '18:00',
       location: 'NoMad',
-      type: 'Power',
+      locationId: 'nomad',
+      type: 'hiit',
+      duration: '60 min',
       capacity: 20,
       enrolled: 18,
     },
@@ -115,23 +133,27 @@ const MOCK_SCHEDULE: Record<string, Class[]> = {
   'fidi': [
     {
       id: '9',
-      name: 'Hot Vinyasa',
-      instructor: 'Chris',
+      name: 'Hot Flow',
+      instructor: 'Chris B.',
       startTime: '07:00',
       endTime: '08:00',
       location: 'Financial District',
-      type: 'Vinyasa',
+      locationId: 'fidi',
+      type: 'flow',
+      duration: '60 min',
       capacity: 25,
       enrolled: 23,
     },
     {
       id: '10',
-      name: 'Restorative',
-      instructor: 'Nina',
+      name: 'Yin & Restore',
+      instructor: 'Nina P.',
       startTime: '12:00',
-      endTime: '13:00',
+      endTime: '13:15',
       location: 'Financial District',
-      type: 'Restorative',
+      locationId: 'fidi',
+      type: 'yin',
+      duration: '75 min',
       capacity: 20,
       enrolled: 8,
     },
@@ -139,23 +161,27 @@ const MOCK_SCHEDULE: Record<string, Class[]> = {
   'harlem': [
     {
       id: '11',
-      name: 'Gentle Heat',
-      instructor: 'Priya',
+      name: 'Hot Flow',
+      instructor: 'Priya S.',
       startTime: '08:00',
       endTime: '09:00',
       location: 'Harlem',
-      type: 'Gentle',
+      locationId: 'harlem',
+      type: 'flow',
+      duration: '60 min',
       capacity: 30,
       enrolled: 14,
     },
     {
       id: '12',
-      name: 'Power Flow',
-      instructor: 'James',
+      name: 'Slowburn Hot Pilates',
+      instructor: 'James T.',
       startTime: '18:00',
-      endTime: '19:15',
+      endTime: '19:00',
       location: 'Harlem',
-      type: 'Power',
+      locationId: 'harlem',
+      type: 'pilates',
+      duration: '60 min',
       capacity: 20,
       enrolled: 19,
     },
@@ -163,23 +189,27 @@ const MOCK_SCHEDULE: Record<string, Class[]> = {
   'east-hampton': [
     {
       id: '13',
-      name: 'Hot Vinyasa',
-      instructor: 'Rebecca',
+      name: 'Hot Flow',
+      instructor: 'Rebecca L.',
       startTime: '07:30',
       endTime: '08:30',
       location: 'East Hampton',
-      type: 'Vinyasa',
+      locationId: 'east-hampton',
+      type: 'flow',
+      duration: '60 min',
       capacity: 25,
       enrolled: 16,
     },
     {
       id: '14',
-      name: 'Gentle Heat',
-      instructor: 'Thomas',
+      name: 'Yin & Restore',
+      instructor: 'Thomas H.',
       startTime: '10:00',
-      endTime: '11:00',
+      endTime: '11:15',
       location: 'East Hampton',
-      type: 'Gentle',
+      locationId: 'east-hampton',
+      type: 'yin',
+      duration: '75 min',
       capacity: 30,
       enrolled: 20,
     },
@@ -188,20 +218,12 @@ const MOCK_SCHEDULE: Record<string, Class[]> = {
 
 export async function getSchedule(locationId?: string): Promise<Class[]> {
   // TODO: Replace with actual MindBody API call
-  // const response = await fetch('https://mindbody.io/api/schedule', {
-  //   headers: { Authorization: `Bearer ${process.env.MINDBODY_API_KEY}` }
-  // })
-
-  // For now, return mock data
   if (locationId && MOCK_SCHEDULE[locationId]) {
     return MOCK_SCHEDULE[locationId]
   }
-
-  // Return all classes from all locations
   return Object.values(MOCK_SCHEDULE).flat()
 }
 
 export function getBookingUrl(): string {
-  // This should link to your MindBody booking page
-  return 'https://mindbody.io/book'
+  return 'https://clients.mindbodyonline.com/classic/ws?studioid=622897'
 }
