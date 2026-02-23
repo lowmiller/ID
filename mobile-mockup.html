@@ -114,15 +114,21 @@
     .location-pill .name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .location-pill .chevron { color: #666; font-size: 10px; flex-shrink: 0; margin-left: auto; }
 
-    .header-account {
-      width: 32px; height: 32px;
-      background: #1c1c1c;
-      border: 1px solid #2a2a2a;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px;
+    .hamburger {
+      width: 36px; height: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
       flex-shrink: 0;
       cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px; height: 1.5px;
+      background: #ccc;
+      border-radius: 2px;
     }
 
     /* ─── Hero / New Student Banner ─────────────────────── */
@@ -626,59 +632,43 @@
     /* ─── Spacer ────────────────────────────────────────── */
     .spacer { height: 32px; }
 
-    /* ─── Bottom Nav ────────────────────────────────────── */
-    .bottom-nav {
+    /* ─── Sticky Book CTA Bar ───────────────────────────── */
+    .sticky-cta {
       position: absolute;
       bottom: 0; left: 0; right: 0;
       background: rgba(13,13,13,0.97);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid #1e1e1e;
-      display: flex;
-      align-items: center;
-      padding: 10px 0 22px; /* 22px for home indicator */
+      padding: 12px 20px 26px; /* 26px for browser chrome / home bar */
       z-index: 50;
     }
-
-    .nav-item {
-      flex: 1;
+    .sticky-cta-btn {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 4px;
-      cursor: pointer;
-    }
-
-    .nav-icon { font-size: 20px; line-height: 1; }
-    .nav-label {
-      font-size: 10px;
-      font-weight: 500;
-      color: #444;
-      letter-spacing: 0.02em;
-    }
-    .nav-item.active .nav-label { color: #e8c97a; }
-    .nav-item.active .nav-icon { filter: sepia(1) saturate(2) hue-rotate(5deg); }
-
-    /* Center Book button */
-    .nav-book {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-    }
-    .nav-book-btn {
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
       background: #e8c97a;
       color: #0d0d0d;
       border: none;
       border-radius: 14px;
-      padding: 8px 18px;
-      font-size: 12px;
+      padding: 16px;
+      font-size: 16px;
       font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      letter-spacing: 0.01em;
       cursor: pointer;
+    }
+    .sticky-cta-sub {
+      margin-top: 8px;
+      text-align: center;
+      font-size: 11px;
+      color: #444;
+    }
+    .sticky-cta-sub a {
+      color: #666;
+      text-decoration: none;
+      margin: 0 8px;
     }
 
     /* ─── Annotation Callouts ───────────────────────────── */
@@ -726,7 +716,7 @@
           <span class="name">NoMad · 284 5th Ave</span>
           <span class="chevron">▾</span>
         </div>
-        <div class="header-account">👤</div>
+        <div class="hamburger"><span></span><span></span><span></span></div>
       </div>
 
       <!-- ② New Student Hero -->
@@ -984,26 +974,14 @@
 
     </div><!-- /screen -->
 
-    <!-- ⑪ Bottom Navigation -->
-    <div class="bottom-nav">
-      <div class="nav-item active">
-        <span class="nav-icon">🏠</span>
-        <span class="nav-label">Home</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">📅</span>
-        <span class="nav-label">Schedule</span>
-      </div>
-      <div class="nav-book">
-        <button class="nav-book-btn">Book Now</button>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">💳</span>
-        <span class="nav-label">Pricing</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-icon">👤</span>
-        <span class="nav-label">Account</span>
+    <!-- Sticky Book CTA Bar -->
+    <div class="sticky-cta">
+      <button class="sticky-cta-btn">Book a Class</button>
+      <div class="sticky-cta-sub">
+        <a href="#">Schedule</a>·
+        <a href="#">Pricing</a>·
+        <a href="#">Locations</a>·
+        <a href="#">Log In</a>
       </div>
     </div>
 
@@ -1016,7 +994,7 @@
     <div class="annotation"><div class="ann-num">3</div><div class="ann-text"><strong>Schedule visible on the homepage:</strong> Today's classes load inline on the home screen — no navigation required to see what's available right now.</div></div>
     <div class="annotation"><div class="ann-num">4</div><div class="ann-text"><strong>Day scroller + class type filters:</strong> Horizontal scroll chips let users jump to any day or filter by class type with one tap. No dropdowns, no page reloads.</div></div>
     <div class="annotation"><div class="ann-num">5</div><div class="ann-text"><strong>Class cards show spots + one-tap booking:</strong> Availability (green/amber/red) and a direct Book button per class. No separate booking flow just to see if a class is full.</div></div>
-    <div class="annotation"><div class="ann-num">6</div><div class="ann-text"><strong>Persistent "Book Now" in bottom nav:</strong> The primary action is always one tap away regardless of where the user is on the page.</div></div>
+    <div class="annotation"><div class="ann-num">6</div><div class="ann-text"><strong>Sticky CTA bar, not a tab bar:</strong> A full-width "Book a Class" button stays anchored to the bottom of the browser viewport. Below it, small text links handle secondary navigation (Schedule, Pricing, Locations, Log In) without mimicking a native app tab bar.</div></div>
     <div class="annotation"><div class="ann-num">7</div><div class="ann-text"><strong>Inline pricing teaser:</strong> Three pricing tiers shown as cards — scannable in 3 seconds. Highlights the unlimited plan as best value without hiding pricing behind a separate page.</div></div>
     <div class="annotation"><div class="ann-num">8</div><div class="ann-text"><strong>Location selector as a list, not a map:</strong> A tappable list with neighborhood names is faster than a map view on mobile, especially for repeat users who know their studio.</div></div>
   </div>
